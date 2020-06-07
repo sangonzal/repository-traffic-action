@@ -40,7 +40,8 @@ def main():
 
     traffic_frame.plot(ax=axes[0])
     clones_frame.plot(ax=axes[1])
-    plt.show()
+    # plt.show()
+    plt.savefig("plots.png")
     #print(traffic_frame)
 
 
