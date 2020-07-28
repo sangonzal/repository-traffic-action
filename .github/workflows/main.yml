@@ -27,7 +27,7 @@ jobs:
       
     - name: GitHub insights 
       id: insights
-      uses: actions/insights@v1
+      uses: ./
         
     - name: Commit changes
       uses: EndBug/add-and-commit@v4
