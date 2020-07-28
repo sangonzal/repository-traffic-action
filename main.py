@@ -1,15 +1,20 @@
 from github import Github
-import os.path
+import os
 import pandas as pd
 import matplotlib.pyplot as plt
 
+repo_name = os.environ["GITHUB_REPOSITORY"]
+print("In ", repo_name)
+github = Github(os.environ["GITHUB_TOKEN"]) 
+repo = github.get_repo(repo_name)
 
-github = Github()
-repo = github.get_repo("AzureAd/microsoft-authentication-library-for-java")
+workplace_path = "{}/{}".format(os.environ["GITHUB_WORKSPACE"], "insights")
+print("Workplace path: ", workplace_path)
 
-views_path = "./insights/views.csv"
-clones_path = "./insights/clones.csv"
-plots_path = "./insights/plots.png"
+views_path = "{}/{}".format(workplace_path, "./views.csv")
+clones_path = "{}/{}".format(workplace_path,"/clones.csv")
+plots_path = "{}/{}".format(workplace_path,"/plots.png")
+
 
 def main():
     # Traffic stats
