@@ -4,16 +4,18 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 repo_name = os.environ["GITHUB_REPOSITORY"]
-print("In ", repo_name)
 github = Github(os.environ["GITHUB_TOKEN"]) 
 repo = github.get_repo(repo_name)
 
-workplace_path = "{}/{}".format(os.environ["GITHUB_WORKSPACE"], "insights")
+
+workplace_path = "{}{}".format(os.environ["GITHUB_WORKSPACE"], "insights")
+if not os.path.exists(workplace_path):
+    os.makedirs(workplace_path)
 print("Workplace path: ", workplace_path)
 
-views_path = "{}/{}".format(workplace_path, "./views.csv")
-clones_path = "{}/{}".format(workplace_path,"/clones.csv")
-plots_path = "{}/{}".format(workplace_path,"/plots.png")
+views_path = "{}/{}".format(workplace_path, "views.csv")
+clones_path = "{}/{}".format(workplace_path,"clones.csv")
+plots_path = "{}/{}".format(workplace_path,"plots.png")
 
 
 def main():
@@ -27,7 +29,7 @@ def main():
         old_traffic_data = pd.read_csv(views_path, index_col="_date", parse_dates=["_date"]).to_dict(orient="index")
         updated_dict = {**old_traffic_data, **traffic_dict}
         traffic_frame = pd.DataFrame.from_dict(data=updated_dict, orient="index", columns=["total_views", "unique_views"])
-    except IOError:
+    except:
         traffic_frame = pd.DataFrame.from_dict(data=traffic_dict, orient="index", columns=["total_views", "unique_views"])
     
     traffic_frame.index.name = "_date"
@@ -44,7 +46,7 @@ def main():
         old_clone_data = pd.read_csv(clones_path, index_col="_date", parse_dates=["_date"]).to_dict(orient="index")
         updated_clones_dict = {**old_clone_data, **clones_dict}
         clones_frame = pd.DataFrame.from_dict(data=updated_clones_dict, orient="index", columns=["total_clones", "unique_clones"])
-    except IOError:
+    except:
         clones_frame = pd.DataFrame.from_dict(data=traffic_dict, orient="index", columns=["total_clones", "unique_clones"])
         
     clones_frame.index.name = "_date"
