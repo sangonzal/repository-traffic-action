@@ -8,4 +8,4 @@ COPY views.csv /
 RUN pip install pipenv
 RUN pipenv install
 
-CMD ["pipenv", "run", "python", "./main.py"]
+ENTRYPOINT ["pipenv", "run", "python", "./main.py"]

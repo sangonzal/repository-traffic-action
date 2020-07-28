@@ -1,0 +1,29 @@
+name: 'insights'
+author: Santiago Gonzalez
+description: 'Stores GitHub repository insights data past the default 2 week period'
+on:
+  schedule:
+  - cron: '* */24 * * *'
+
+inputs:
+  branch:
+    description:
+    required: false
+    default: dev
+
+inputs:
+  :
+    description:
+    required: false
+    default: dev
+
+
+
+outputs:
+  time: # id of output
+    description: 'The time we greeted you'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.branch }}
