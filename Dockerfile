@@ -6,6 +6,7 @@ COPY Pipfile.lock /
 COPY views.csv /
 
 RUN pip install pipenv
-RUN pipenv install
+RUN pipenv install --deploy --ignore-pipfile
+RUN pipenv shell
 
 ENTRYPOINT ["pipenv", "run", "python", "./main.py"]
