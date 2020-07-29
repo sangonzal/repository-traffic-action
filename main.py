@@ -4,7 +4,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 repo_name = os.environ["GITHUB_REPOSITORY"]
-github = Github(os.environ["INSIGHTS_API_TOKEN"]) 
+github = Github(os.environ["INSIGHTS_API_TOKEN"])
+print("Repository name: ", repo_name)
+print("token: ", os.environ["INSIGHTS_API_TOKEN"])
 repo = github.get_repo(repo_name)
 
 
