@@ -4,9 +4,8 @@
 #   schedule: 
 #     - cron: "55 23 * * 0"
 on: 
-  push: 
-    branches: 
-      - master
+  schedule: 
+      - cron: "0 0 * * *"
 
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -34,5 +33,4 @@ jobs:
         author_email: sagonzal@microsoft.com
         message: "GitHub insights"
         add: "./insights/*"
-
         

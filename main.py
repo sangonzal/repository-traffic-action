@@ -15,8 +15,8 @@ if not os.path.exists(workplace_path):
 print("Workplace path: ", workplace_path)
 
 views_path = "{}/{}".format(workplace_path, "views.csv")
-clones_path = "{}/{}".format(workplace_path,"clones.csv")
-plots_path = "{}/{}".format(workplace_path,"plots.png")
+clones_path = "{}/{}".format(workplace_path, "clones.csv")
+plots_path = "{}/{}".format(workplace_path, "plots.png")
 
 
 def main():
