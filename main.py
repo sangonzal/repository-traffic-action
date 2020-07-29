@@ -8,7 +8,7 @@ github = Github(os.environ["GITHUB_TOKEN"])
 repo = github.get_repo(repo_name)
 
 
-workplace_path = "{}{}".format(os.environ["GITHUB_WORKSPACE"], "insights")
+workplace_path = "{}/{}".format(os.environ["GITHUB_WORKSPACE"], "insights")
 if not os.path.exists(workplace_path):
     os.makedirs(workplace_path)
 print("Workplace path: ", workplace_path)
