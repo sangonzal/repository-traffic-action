@@ -24,6 +24,8 @@ jobs:
     - name: GitHub insights 
       id: insights
       uses: ./
+      env:
+        INSIGHTS_API_TOKEN: ${{ secrets.INSIGHTS_API_TOKEN }}
         
     - name: Commit changes
       uses: EndBug/add-and-commit@v4
@@ -34,5 +36,3 @@ jobs:
         add: "./insights/*"
 
         
-env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
