@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 repo_name = os.environ["GITHUB_REPOSITORY"]
 github = Github(os.environ["INSIGHTS_ACTION_TOKEN"])
 print("Repository name: ", repo_name)
-print("Token: ", os.environ["INSIGHTS_ACTION_TOKEN"])
 repo = github.get_repo(repo_name)
 
 
@@ -21,6 +20,7 @@ plots_path = "{}/{}".format(workplace_path,"plots.png")
 
 
 def main():
+
     # Traffic stats
     traffic = repo.get_views_traffic()
     traffic_dict = {}
@@ -57,10 +57,11 @@ def main():
     # Plots
     _, axes = plt.subplots(nrows=2)
 
-    traffic_weekly = traffic_frame.resample("W").sum()
-    clones_weekly = traffic_frame.resample("W").sum()
-    traffic_weekly.plot(ax=axes[0])
-    clones_weekly.plot(ax=axes[1])
+    # Consider letting users configure plots
+    # traffic_weekly = traffic_frame.resample("W", label="left").sum().tail(12)
+    # clones_weekly = clones_frame.resample("W", label="left").sum().tail(12)
+    traffic_frame.tail(30).plot(ax=axes[0])
+    clones_frame.tail(30).plot(ax=axes[1])
     plt.savefig(plots_path)
 
 
