@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 repo_name = os.environ["GITHUB_REPOSITORY"]
 github = Github(os.environ["INSIGHTS_ACTION_TOKEN"])
 print("Repository name: ", repo_name)
-print("token: ", os.environ["INSIGHTS_ACTION_TOKEN"])
+print("Token: ", os.environ["INSIGHTS_ACTION_TOKEN"])
 repo = github.get_repo(repo_name)
 
 

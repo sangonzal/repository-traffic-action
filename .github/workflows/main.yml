@@ -25,7 +25,7 @@ jobs:
       id: insights
       uses: ./
       env:
-        INSIGHTS_API_TOKEN: ${{ secrets.INSIGHTS_ACTION_TOKEN }} 
+        INSIGHTS_ACTION_TOKEN: ${{ secrets.INSIGHTS_ACTION_TOKEN }} 
         
     - name: Commit changes
       uses: EndBug/add-and-commit@v4
