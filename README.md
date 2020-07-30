@@ -60,7 +60,6 @@ jobs:
       uses: EndBug/add-and-commit@v4
       with:
         author_name: Santiago Gonzalez
-        author_email: sagonzal@microsoft.com
         message: "GitHub insights"
         add: "./insights/*"
 ```
@@ -91,15 +90,7 @@ jobs:
       env:
         INSIGHTS_ACTION_TOKEN: ${{ secrets.INSIGHTS_ACTION_TOKEN }} 
      
-    # Commits files to repository
-    - name: Commit changes
-      uses: EndBug/add-and-commit@v4
-      with:
-        author_name: Santiago Gonzalez
-        author_email: sagonzal@microsoft.com
-        message: "GitHub insights"
-        add: "./insights/*"
-        
+     # Upload to S3
     - name: S3 Sync
       uses: jakejarvis/s3-sync-action@v0.5.1
       with:

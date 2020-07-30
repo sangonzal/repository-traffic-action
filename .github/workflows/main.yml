@@ -33,7 +33,6 @@ jobs:
       uses: EndBug/add-and-commit@v4
       with:
         author_name: Santiago Gonzalez
-        author_email: sagonzal@microsoft.com
         message: "GitHub insights"
         add: "./insights/*"
         
