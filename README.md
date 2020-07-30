@@ -1,6 +1,6 @@
-# GitHub Insights Action 
+# Repository Insights GitHub Action
 
-Github actionto store repository traffic and clones past the default 2 week period. It pulls data from the GitHub API to pull traffic and clones. It stores data into a csv file, which can be commited to your repository or uploaded to storage elsewhere. 
+Github action that can be used to store repository traffic and clones past the default 2 week period. It pulls traffic and clones data from the GitHub API and stores it into a csv file, which can be commited to your repository or uploaded to storage elsewhere. 
 
 # Usage
 
