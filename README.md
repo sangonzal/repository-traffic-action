@@ -35,6 +35,7 @@ This actions does not store the generated data anywhere by default. It temporari
 ```yaml
 on:
   schedule: 
+    # runs once a week on sunday
     - cron: "55 23 * * 0"
     
 jobs:
@@ -70,6 +71,7 @@ If you'd like to avoid commiting the data to the repository, you can use another
 ```yaml
 on:
   schedule: 
+    # runs once a week on sunday
     - cron: "55 23 * * 0"
     
 jobs:
