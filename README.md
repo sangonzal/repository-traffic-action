@@ -1,4 +1,4 @@
-# Repository Insights GitHub Action
+# Repository Traffic GitHub Action
 
 Github action that can be used to store repository traffic and clones past the default 2 week period. It pulls traffic and clones data from the GitHub API and stores it into a csv file, which can be commited to your repository or uploaded to storage elsewhere. 
 
@@ -10,7 +10,7 @@ You'll first need to create a personal access token (PAT) so the action can acce
 You can generate a PAT by going to 
 Settings -> Developer Settings -> Personal Access Tokens -> Generate new token. You will need to grant "repo" permission. For more in depth instructions, see the [GitHub documentation](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
 
-After you have generated the PAT, go to the "Settings" tab of the repository, click on New Secret, name the secret "INSIGHTS_ACTION_TOKEN" and copy the PAT into the box.
+After you have generated the PAT, go to the "Settings" tab of the repository, click on New Secret, name the secret "TRAFFIC_ACTION_TOKEN" and copy the PAT into the box.
 
 ## Create a work flow
 
@@ -21,14 +21,14 @@ Create a `workflow.yml` file and place in your `.github/workflows` folder. You c
     - uses: actions/checkout@v2
     
     # Calculates traffic and clones and stores in CSV file
-    - name: GitHub Insights 
-      id: insights
+    - name: Repository Traffic 
+      id: traffic
       uses: ./
       env:
-        INSIGHTS_ACTION_TOKEN: ${{ secrets.INSIGHTS_ACTION_TOKEN }} 
+        TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }} 
 ```
 
-This actions does not store the generated data anywhere by default. It temporarily stores it in `${GITHUB_WORKPLACE}/insights`, but unless it's exported it will be lost. You can integrate other actions into the workflow to upload data elsewhere. Below are two example.
+This actions does not store the generated data anywhere by default. It temporarily stores it in `${GITHUB_WORKPLACE}/traffic`, but unless it's exported it will be lost. You can integrate other actions into the workflow to upload data elsewhere. Below are two example.
 
  ### Sample workflow that runs weekly and commits files to repository.
 
@@ -39,8 +39,8 @@ on:
     - cron: "55 23 * * 0"
     
 jobs:
-  # This workflow contains a single job called "insights"
-  insights:
+  # This workflow contains a single job called "traffic"
+  traffic:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -50,19 +50,19 @@ jobs:
     - uses: actions/checkout@v2
     
     # Calculates traffic and clones and stores in CSV file
-    - name: GitHub Insights 
-      id: insights
+    - name: GitHub traffic 
+      id: traffic
       uses: ./
       env:
-        INSIGHTS_ACTION_TOKEN: ${{ secrets.INSIGHTS_ACTION_TOKEN }} 
+        TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }} 
      
     # Commits files to repository
     - name: Commit changes
       uses: EndBug/add-and-commit@v4
       with:
         author_name: Santiago Gonzalez
-        message: "GitHub insights"
-        add: "./insights/*"
+        message: "GitHub traffic"
+        add: "./traffic/*"
 ```
 ### Sample workflow that runs weekly and commits files to repository.
  
@@ -75,8 +75,8 @@ on:
     - cron: "55 23 * * 0"
     
 jobs:
-  # This workflow contains a single job called "insights"
-  insights:
+  # This workflow contains a single job called "traffic"
+  traffic:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -86,11 +86,11 @@ jobs:
     - uses: actions/checkout@v2
     
     # Calculates traffic and clones and stores in CSV file
-    - name: GitHub Insights 
-      id: insights
+    - name: Repository Traffic 
+      id: traffic
       uses: ./
       env:
-        INSIGHTS_ACTION_TOKEN: ${{ secrets.INSIGHTS_ACTION_TOKEN }} 
+        TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }} 
      
      # Upload to S3
     - name: S3 Sync
@@ -101,5 +101,5 @@ jobs:
         AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        SOURCE_DIR: 'insights'
+        SOURCE_DIR: 'traffic'
 ```

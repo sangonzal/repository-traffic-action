@@ -4,12 +4,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 repo_name = os.environ["GITHUB_REPOSITORY"]
-github = Github(os.environ["INSIGHTS_ACTION_TOKEN"])
+github = Github(os.environ["TRAFFIC_ACTION_TOKEN"])
 print("Repository name: ", repo_name)
 repo = github.get_repo(repo_name)
 
 
-workplace_path = "{}/{}".format(os.environ["GITHUB_WORKSPACE"], "insights")
+workplace_path = "{}/{}".format(os.environ["GITHUB_WORKSPACE"], "traffic")
 if not os.path.exists(workplace_path):
     os.makedirs(workplace_path)
 print("Workplace path: ", workplace_path)
