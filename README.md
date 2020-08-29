@@ -23,7 +23,7 @@ Create a `workflow.yml` file and place in your `.github/workflows` folder. You c
     # Calculates traffic and clones and stores in CSV file
     - name: Repository Traffic 
       id: traffic
-      uses: ./
+      uses: sangonzal/repository-traffic-action@v0.1.0
       env:
         TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }} 
 ```
@@ -52,7 +52,7 @@ jobs:
     # Calculates traffic and clones and stores in CSV file
     - name: GitHub traffic 
       id: traffic
-      uses: ./
+      uses: sangonzal/repository-traffic-action@v0.1.0
       env:
         TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }} 
      
@@ -88,7 +88,7 @@ jobs:
     # Calculates traffic and clones and stores in CSV file
     - name: Repository Traffic 
       id: traffic
-      uses: ./
+      uses: sangonzal/repository-traffic-action@v0.1.0
       env:
         TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }} 
      
