@@ -1,6 +1,6 @@
-name: 'insights'
+name: 'Repository Traffic'
 author: Santiago Gonzalez
-description: 'Stores GitHub repository insights data past the default 2 week period'
+description: 'Stores GitHub repository traffic data past the default 2 week period'
 
 inputs:
   branch:
