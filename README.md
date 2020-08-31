@@ -1,6 +1,6 @@
 # Repository Traffic GitHub Action
 
-Github action that can be used to store repository traffic and clones past the default 2 week period. It pulls traffic and clones data from the GitHub API and stores it into a csv file, which can be commited to your repository or uploaded to storage elsewhere. 
+Github action that can be used to store repository traffic and clones past the default 2 week period. It pulls traffic and clones data from the GitHub API v3 and stores it into a csv file, which can be commited to your repository or uploaded elsewhere. 
 
 # Usage
 
@@ -63,8 +63,9 @@ jobs:
         author_name: Santiago Gonzalez
         message: "GitHub traffic"
         add: "./traffic/*"
+        ref: "traffic"  # commits to branch "traffic" 
 ```
-### Sample workflow that runs weekly and commits files to repository.
+### Sample workflow that runs weekly and uploads files to S3.
  
 If you'd like to avoid commiting the data to the repository, you can use another action to upload elsewhere. For example, you could upload to S3 using the [S3 Sync action](https://github.com/marketplace/actions/s3-sync) .
 
