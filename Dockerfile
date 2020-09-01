@@ -10,9 +10,9 @@ ENV WORKON_HOME /root
 # and `docker run`, this ensures we always use the same Pipfile)
 ENV PIPENV_PIPFILE /Pipfile
 
-COPY main.py /
-COPY Pipfile /
-COPY Pipfile.lock /
+COPY main.py /root
+COPY Pipfile /root
+COPY Pipfile.lock /root
 
 # https://github.com/pypa/pipenv/issues/4273
 RUN pip install 'pipenv==2018.11.26'
