@@ -11,8 +11,8 @@ ENV WORKON_HOME /root
 ENV PIPENV_PIPFILE /Pipfile
 
 COPY main.py /root
-COPY Pipfile /root
-COPY Pipfile.lock /root
+COPY Pipfile /
+COPY Pipfile.lock /
 
 # https://github.com/pypa/pipenv/issues/4273
 RUN pip install 'pipenv==2018.11.26'
