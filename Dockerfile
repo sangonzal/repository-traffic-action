@@ -18,4 +18,4 @@ COPY Pipfile.lock /
 RUN pip install 'pipenv==2018.11.26'
 RUN pipenv install --deploy --ignore-pipfile
 
-ENTRYPOINT ["pipenv", "run", "python", "./main.py"]
+ENTRYPOINT ["pipenv", "run", "python", "/main.py"]

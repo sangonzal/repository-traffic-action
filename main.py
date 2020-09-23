@@ -60,8 +60,10 @@ def main():
     # Consider letting users configure plots
     # traffic_weekly = traffic_frame.resample("W", label="left").sum().tail(12)
     # clones_weekly = clones_frame.resample("W", label="left").sum().tail(12)
-    traffic_frame.tail(30).plot(ax=axes[0])
-    clones_frame.tail(30).plot(ax=axes[1])
+    if not traffic_frame.empty:
+        traffic_frame.tail(30).plot(ax=axes[0])
+    if not clones_frame.empty: 
+        clones_frame.tail(30).plot(ax=axes[1])
     plt.savefig(plots_path)
 
 
