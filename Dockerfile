@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3.8
 
 # Tells pipenv to create virtualenvs in /root rather than $HOME/.local/share.
 # We do this because GitHub modifies the HOME variable between `docker build` and
