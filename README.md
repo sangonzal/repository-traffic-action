@@ -17,13 +17,9 @@ After you have generated the PAT, go to the "Settings" tab of the repository, cl
 Create a `workflow.yml` file and place in your `.github/workflows` folder. You can reference the action from this workflow. The only required parameter is setting the PAT that was generated when setting up the permissions.
 ```yaml
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-    
     # Calculates traffic and clones and stores in CSV file
     - name: Repository Traffic 
-      id: traffic
-      uses: sangonzal/repository-traffic-action@v0.1.1
+      uses: sangonzal/repository-traffic-action@v0.1.2
       env:
         TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }} 
 ```
@@ -48,11 +44,12 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
+      with:
+        ref: "traffic"
     
     # Calculates traffic and clones and stores in CSV file
     - name: GitHub traffic 
-      id: traffic
-      uses: sangonzal/repository-traffic-action@v0.1.1
+      uses: sangonzal/repository-traffic-action@v0.1.2
       env:
         TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }} 
      
@@ -65,9 +62,12 @@ jobs:
         add: "./traffic/*"
         ref: "traffic"  # commits to branch "traffic" 
 ```
+- Notes: 
+  - Ensure that the ref used in actions/checkoutv2 is the same in Endbug/add-and-commit@v4. 
+
 ### Sample workflow that runs weekly and uploads files to S3.
  
-If you'd like to avoid commiting the data to the repository, you can use another action to upload elsewhere. For example, you could upload to S3 using the [S3 Sync action](https://github.com/marketplace/actions/s3-sync) .
+If you'd like to avoid commiting the data to the repository, you can use another action to upload elsewhere. For example, you could download and upload files from S3 using other github actions.
 
 ```yaml
 on:
@@ -85,11 +85,18 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
+
+    # Download from S3
+    - uses: prewk/s3-cp-action@master
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        SOURCE: 's3://some-bucket/something-remote'
+        DEST: 'traffic'
     
     # Calculates traffic and clones and stores in CSV file
     - name: Repository Traffic 
-      id: traffic
-      uses: sangonzal/repository-traffic-action@v0.1.1
+      uses: sangonzal/repository-traffic-action@v0.1.2
       env:
         TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }} 
      
