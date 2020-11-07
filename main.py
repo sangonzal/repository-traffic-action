@@ -49,7 +49,7 @@ def main():
         updated_clones_dict = {**old_clone_data, **clones_dict}
         clones_frame = pd.DataFrame.from_dict(data=updated_clones_dict, orient="index", columns=["total_clones", "unique_clones"])
     except:
-        clones_frame = pd.DataFrame.from_dict(data=traffic_dict, orient="index", columns=["total_clones", "unique_clones"])
+        clones_frame = pd.DataFrame.from_dict(data=clones_dict, orient="index", columns=["total_clones", "unique_clones"])
         
     clones_frame.index.name = "_date"
     clones_frame.to_csv(clones_path)
