@@ -55,7 +55,8 @@ def main():
     clones_frame.to_csv(clones_path)
 
     # Plots
-    _, axes = plt.subplots(nrows=2)
+    fig, axes = plt.subplots(nrows=2)
+    fig.tight_layout(h_pad=6)
 
     # Consider letting users configure plots
     # traffic_weekly = traffic_frame.resample("W", label="left").sum().tail(12)
