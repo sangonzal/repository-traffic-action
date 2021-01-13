@@ -1,9 +1,7 @@
+
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
-on:
-  schedule: 
-    - cron: "55 23 * * 0"
-
+on: [workflow_dispatch]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -17,12 +15,12 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
       with:
-        ref: "insights"
+        ref: "test"
     
     # Calculates traffic and clones and stores in CSV file
     - name: Repository Traffic 
       id: traffic
-      uses: sangonzal/repository-traffic-action@v0.1.3
+      uses: sangonzal/repository-traffic-action@d2d0cc3
       env:
         TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }} 
      
@@ -33,5 +31,5 @@ jobs:
         author_name: Santiago Gonzalez
         message: "GitHub traffic" 
         add: "./traffic/*"
-        ref: "insights"
+        ref: "test"
         
