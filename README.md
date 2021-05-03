@@ -62,7 +62,8 @@ jobs:
         add: "./traffic/*"
         ref: "traffic"  # commits to branch "traffic" 
 ```
-- Notes: 
+- Notes:
+  - Ensure there is a branch in your repository with whatever ref value you use before running the action. If using the above values, you would create a branch "traffic".  
   - Ensure that the ref used in actions/checkoutv2 is the same in Endbug/add-and-commit@v4. 
 
 ### Sample workflow that runs weekly and uploads files to S3.
