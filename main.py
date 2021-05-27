@@ -67,7 +67,6 @@ def main():
 
 
 def merge_dict(old_data, new_data):
-    print(old_data)
     for key in new_data:
         if key not in old_data:
             old_data[key] = new_data[key]
