@@ -3,23 +3,22 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 
-repo_name = os.environ["GITHUB_REPOSITORY"]
-github = Github(os.environ["TRAFFIC_ACTION_TOKEN"])
-print("Repository name: ", repo_name)
-repo = github.get_repo(repo_name)
-
-
-workplace_path = "{}/{}".format(os.environ["GITHUB_WORKSPACE"], "traffic")
-if not os.path.exists(workplace_path):
-    os.makedirs(workplace_path)
-print("Workplace path: ", workplace_path)
-
-views_path = "{}/{}".format(workplace_path, "views.csv")
-clones_path = "{}/{}".format(workplace_path, "clones.csv")
-plots_path = "{}/{}".format(workplace_path, "plots.png")
-
 
 def main():
+    repo_name = os.environ["GITHUB_REPOSITORY"]
+    github = Github(os.environ["TRAFFIC_ACTION_TOKEN"])
+
+    print("Repository name: ", repo_name)
+    repo = github.get_repo(repo_name)
+
+    workplace_path = "{}/{}".format(os.environ["GITHUB_WORKSPACE"], "traffic")
+    if not os.path.exists(workplace_path):
+        os.makedirs(workplace_path)
+    print("Workplace path: ", workplace_path)
+
+    views_path = "{}/{}".format(workplace_path, "views.csv")
+    clones_path = "{}/{}".format(workplace_path, "clones.csv")
+    plots_path = "{}/{}".format(workplace_path, "plots.png")
 
     # Traffic stats
     traffic = repo.get_views_traffic()
@@ -29,14 +28,13 @@ def main():
     
     try:
         old_traffic_data = pd.read_csv(views_path, index_col="_date", parse_dates=["_date"]).to_dict(orient="index")
-        updated_dict = {**old_traffic_data, **traffic_dict}
+        updated_dict = merge_dict(old_traffic_data, traffic_dict)
         traffic_frame = pd.DataFrame.from_dict(data=updated_dict, orient="index", columns=["total_views", "unique_views"])
     except:
         traffic_frame = pd.DataFrame.from_dict(data=traffic_dict, orient="index", columns=["total_views", "unique_views"])
     
     traffic_frame.index.name = "_date"
     traffic_frame.to_csv(views_path)
-
 
     # Clones stats
     clones = repo.get_clones_traffic()
@@ -46,7 +44,7 @@ def main():
 
     try:
         old_clone_data = pd.read_csv(clones_path, index_col="_date", parse_dates=["_date"]).to_dict(orient="index")
-        updated_clones_dict = {**old_clone_data, **clones_dict}
+        updated_clones_dict = merge_dict(old_clone_data, clones_dict)
         clones_frame = pd.DataFrame.from_dict(data=updated_clones_dict, orient="index", columns=["total_clones", "unique_clones"])
     except:
         clones_frame = pd.DataFrame.from_dict(data=clones_dict, orient="index", columns=["total_clones", "unique_clones"])
@@ -67,6 +65,16 @@ def main():
         clones_frame.tail(30).plot(ax=axes[1])
     plt.savefig(plots_path)
 
+
+def merge_dict(old_data, new_data):
+    print(old_data)
+    for key in new_data:
+        if key not in old_data:
+            old_data[key] = new_data[key]
+        else: 
+            if new_data[key]["total_views"] > old_data[key]["total_views"] or new_data[key]["unique_views"] > old_data[key]["unique_views"]:
+                old_data[key] = new_data[key]
+    return old_data
 
 if __name__ == "__main__":
     main()
