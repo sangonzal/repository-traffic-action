@@ -24,7 +24,7 @@ Create a `workflow.yml` file and place in your `.github/workflows` folder. You c
         TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }} 
 ```
 
-This actions does not store the generated data anywhere by default. It temporarily stores it in `${GITHUB_WORKPLACE}/traffic`, but unless it's exported it will be lost. You can integrate other actions into the workflow to upload data elsewhere. Below are two example.
+This actions does not store the generated data anywhere by default. It temporarily stores it in `${GITHUB_WORKPLACE}/traffic`, but unless it's exported it will be lost. You can integrate other actions into the workflow to upload data elsewhere. Below are two examples.
 
  ### Sample workflow that runs weekly and commits files to repository.
 
