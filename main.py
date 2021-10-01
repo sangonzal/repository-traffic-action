@@ -24,15 +24,19 @@ def main():
     traffic = repo.get_views_traffic()
     traffic_dict = {}
     for view in traffic['views']:
-        traffic_dict[view.timestamp] = {"total_views": view.count, "unique_views": view.uniques}
-    
+        traffic_dict[view.timestamp] = {
+            "total_views": view.count, "unique_views": view.uniques}
+
     try:
-        old_traffic_data = pd.read_csv(views_path, index_col="_date", parse_dates=["_date"]).to_dict(orient="index")
+        old_traffic_data = pd.read_csv(views_path, index_col="_date", parse_dates=[
+                                       "_date"]).to_dict(orient="index")
         updated_dict = merge_dict(old_traffic_data, traffic_dict)
-        traffic_frame = pd.DataFrame.from_dict(data=updated_dict, orient="index", columns=["total_views", "unique_views"])
+        traffic_frame = pd.DataFrame.from_dict(
+            data=updated_dict, orient="index", columns=["total_views", "unique_views"])
     except:
-        traffic_frame = pd.DataFrame.from_dict(data=traffic_dict, orient="index", columns=["total_views", "unique_views"])
-    
+        traffic_frame = pd.DataFrame.from_dict(
+            data=traffic_dict, orient="index", columns=["total_views", "unique_views"])
+
     traffic_frame.index.name = "_date"
     traffic_frame.to_csv(views_path)
 
@@ -40,15 +44,19 @@ def main():
     clones = repo.get_clones_traffic()
     clones_dict = {}
     for view in clones['clones']:
-        clones_dict[view.timestamp] = {"total_clones": view.count, "unique_clones": view.uniques}
+        clones_dict[view.timestamp] = {
+            "total_clones": view.count, "unique_clones": view.uniques}
 
     try:
-        old_clone_data = pd.read_csv(clones_path, index_col="_date", parse_dates=["_date"]).to_dict(orient="index")
+        old_clone_data = pd.read_csv(clones_path, index_col="_date", parse_dates=[
+                                     "_date"]).to_dict(orient="index")
         updated_clones_dict = merge_dict(old_clone_data, clones_dict)
-        clones_frame = pd.DataFrame.from_dict(data=updated_clones_dict, orient="index", columns=["total_clones", "unique_clones"])
+        clones_frame = pd.DataFrame.from_dict(
+            data=updated_clones_dict, orient="index", columns=["total_clones", "unique_clones"])
     except:
-        clones_frame = pd.DataFrame.from_dict(data=clones_dict, orient="index", columns=["total_clones", "unique_clones"])
-        
+        clones_frame = pd.DataFrame.from_dict(data=clones_dict, orient="index", columns=[
+                                              "total_clones", "unique_clones"])
+
     clones_frame.index.name = "_date"
     clones_frame.to_csv(clones_path)
 
@@ -61,7 +69,7 @@ def main():
     # clones_weekly = clones_frame.resample("W", label="left").sum().tail(12)
     if not traffic_frame.empty:
         traffic_frame.tail(30).plot(ax=axes[0])
-    if not clones_frame.empty: 
+    if not clones_frame.empty:
         clones_frame.tail(30).plot(ax=axes[1])
     plt.savefig(plots_path)
 
@@ -70,10 +78,11 @@ def merge_dict(old_data, new_data):
     for key in new_data:
         if key not in old_data:
             old_data[key] = new_data[key]
-        else: 
+        else:
             if new_data[key]["total_views"] > old_data[key]["total_views"] or new_data[key]["unique_views"] > old_data[key]["unique_views"]:
                 old_data[key] = new_data[key]
     return old_data
+
 
 if __name__ == "__main__":
     main()
