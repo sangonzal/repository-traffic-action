@@ -6,7 +6,7 @@ import requests
 
 
 def main():
-    repo_name=os.environ["GITHUB_REPOSITORY"]
+    repo_name = os.environ["GITHUB_REPOSITORY"]
     repo_stats = RepoStats(
         repo_name, os.environ["TRAFFIC_ACTION_TOKEN"])
 
@@ -21,17 +21,19 @@ def main():
 
     views_frame = repo_stats.get_views(views_path)
     clones_frame = repo_stats.get_clones(clones_path)
-    
+
     if os.environ["UPLOAD_KEY"]:
         upload(repo_name, views_frame, clones_frame, os.environ["UPLOAD_KEY"])
-    else: 
+    else:
         views_frame.to_csv(views_path)
         clones_frame.to_csv(clones_path)
         create_plots(views_frame, clones_frame, plots_path)
 
+
 def upload(repo_name, views_frame, clones_frame, api_key):
-    data ={repo_name: views_frame.join(clones_frame, how='outer').to_json(orient='index')}
-    print(requests.put("http://localhost:3000/api/upload", json = json.loads(json.dumps(data))))
+    data = {repo_name: json.loads(views_frame.join(
+        clones_frame, how='outer').to_json(orient='index'))}
+    print(requests.put("http://localhost:3000/api/upload", json=data))
 
 
 def create_plots(views_frame, clones_frame, plots_path):
