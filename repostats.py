@@ -40,7 +40,7 @@ class RepoStats:
         try:
             old_data = pd.read_csv(file_path, index_col="_date", parse_dates=[
                 "_date"]).to_dict(orient="index")
-            updated_dict = self.merge_dict(old_data, data)
+            updated_dict = self.merge_dict(old_data, data, metric_type)
             dataframe = pd.DataFrame.from_dict(
                 data=updated_dict, orient="index", columns=[total_column, unique_column])
         except:
@@ -50,11 +50,11 @@ class RepoStats:
         dataframe.index.name = "_date"
         return dataframe
 
-    def _merge_dict(self, old_data, new_data):
+    def _merge_dict(self, old_data, new_data, metric_type):
         for key in new_data:
             if key not in old_data:
                 old_data[key] = new_data[key]
             else:
-                if new_data[key]["total_views"] > old_data[key]["total_views"] or new_data[key]["unique_views"] > old_data[key]["unique_views"]:
+                if new_data[key]["total_" + metric_type] > old_data[key]["total_" + metric_type] or new_data[key]["unique_" + metric_type] > old_data[key]["unique_" + metric_type]:
                     old_data[key] = new_data[key]
         return old_data
