@@ -41,7 +41,7 @@ class RepoStats:
             print("Attempt to read existing metrics for: ", metric_type," in ", file_path)
             old_data = pd.read_csv(file_path, index_col="_date", parse_dates=[
                 "_date"]).to_dict(orient="index")
-            updated_dict = self.merge_dict(old_data, data, metric_type)
+            updated_dict = self._merge_dict(old_data, data, metric_type)
             dataframe = pd.DataFrame.from_dict(
                 data=updated_dict, orient="index", columns=[total_column, unique_column])
         except Exception as e:
