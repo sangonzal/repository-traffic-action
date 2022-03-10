@@ -38,14 +38,15 @@ class RepoStats:
         unique_column = "unique_{}".format(metric_type)
 
         try:
-            print("Attempt to read existing metrics for: ", metric_type)
+            print("Attempt to read existing metrics for: ", metric_type," in ", file_path)
             old_data = pd.read_csv(file_path, index_col="_date", parse_dates=[
                 "_date"]).to_dict(orient="index")
             updated_dict = self.merge_dict(old_data, data, metric_type)
             dataframe = pd.DataFrame.from_dict(
                 data=updated_dict, orient="index", columns=[total_column, unique_column])
-        except:
-            print("No existing metrics for: ", metric_type)
+        except Exception as e:
+            print('Exception type is: ', e.__class__.__name__)
+            print("Starting new metrics record for: ", metric_type," in ", file_path)
             dataframe = pd.DataFrame.from_dict(
                 data=data, orient="index", columns=[total_column, unique_column])
 
