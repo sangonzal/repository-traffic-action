@@ -19,12 +19,12 @@ Create a `workflow.yml` file and place in your `.github/workflows` folder. You c
     steps:
     # Calculates traffic and clones and stores in CSV file
     - name: Repository Traffic 
-      uses: sangonzal/repository-traffic-action@v0.1.4
+      uses: sangonzal/repository-traffic-action@v0.1.5
       env:
         TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }} 
 ```
 
-This actions does not store the generated data anywhere by default. It temporarily stores it in `${GITHUB_WORKPLACE}/traffic`, but unless it's exported it will be lost. You can integrate other actions into the workflow to upload data elsewhere. Below are two example.
+This actions does not store the generated data anywhere by default. It temporarily stores it in `${GITHUB_WORKPLACE}/traffic`, but unless it's exported it will be lost. You can integrate other actions into the workflow to upload data elsewhere. Below are two examples.
 
  ### Sample workflow that runs weekly and commits files to repository.
 
@@ -49,7 +49,7 @@ jobs:
     
     # Calculates traffic and clones and stores in CSV file
     - name: GitHub traffic 
-      uses: sangonzal/repository-traffic-action@v0.1.4
+      uses: sangonzal/repository-traffic-action@v0.1.5
       env:
         TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }} 
      
@@ -62,7 +62,8 @@ jobs:
         add: "./traffic/*"
         ref: "traffic"  # commits to branch "traffic" 
 ```
-- Notes: 
+- Notes:
+  - Ensure there is a branch in your repository with whatever ref value you use before running the action. If using the above values, you would create a branch "traffic".  
   - Ensure that the ref used in actions/checkoutv2 is the same in Endbug/add-and-commit@v4. 
 
 ### Sample workflow that runs weekly and uploads files to S3.
@@ -96,7 +97,7 @@ jobs:
     
     # Calculates traffic and clones and stores in CSV file
     - name: Repository Traffic 
-      uses: sangonzal/repository-traffic-action@v0.1.4
+      uses: sangonzal/repository-traffic-action@v0.1.5
       env:
         TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }} 
      
