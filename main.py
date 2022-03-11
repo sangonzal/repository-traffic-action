@@ -22,7 +22,7 @@ def main():
     views_frame = repo_stats.get_views(views_path)
     clones_frame = repo_stats.get_clones(clones_path)
 
-    if os.environ["UPLOAD_KEY"]:
+    if os.environ.get("UPLOAD_KEY"):
         upload(repo_name, views_frame, clones_frame, os.environ["UPLOAD_KEY"])
     else:
         views_frame.to_csv(views_path)

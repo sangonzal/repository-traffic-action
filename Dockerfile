@@ -11,6 +11,7 @@ ENV WORKON_HOME /root
 ENV PIPENV_PIPFILE /Pipfile
 
 COPY main.py /
+COPY repostats.py /
 COPY Pipfile /
 COPY Pipfile.lock /
 
