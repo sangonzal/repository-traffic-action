@@ -19,7 +19,7 @@ Create a `workflow.yml` file and place in your `.github/workflows` folder. You c
     steps:
     # Calculates traffic and clones and stores in CSV file
     - name: Repository Traffic 
-      uses: sangonzal/repository-traffic-action@v0.1.6
+      uses: sangonzal/repository-traffic-action@v.0.1.6
       env:
         TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }} 
 ```
@@ -49,7 +49,7 @@ jobs:
     
     # Calculates traffic and clones and stores in CSV file
     - name: GitHub traffic 
-      uses: sangonzal/repository-traffic-action@v0.1.6
+      uses: sangonzal/repository-traffic-action@v.0.1.6
       env:
         TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }} 
      
@@ -97,7 +97,7 @@ jobs:
     
     # Calculates traffic and clones and stores in CSV file
     - name: Repository Traffic 
-      uses: sangonzal/repository-traffic-action@v0.1.6
+      uses: sangonzal/repository-traffic-action@v.0.1.6
       env:
         TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }} 
      
@@ -119,7 +119,7 @@ If you'd like to get stats from a different repository than the one that you are
     steps:
     # Calculates traffic and clones and stores in CSV file
     - name: Repository Traffic 
-      uses: sangonzal/repository-traffic-action@v0.1.6
+      uses: sangonzal/repository-traffic-action@v.0.1.6
       env:
         TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }}
         REPOSITORY_NAME: "sangonzal/repository-traffic-action"
