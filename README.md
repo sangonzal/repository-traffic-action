@@ -19,7 +19,7 @@ Create a `workflow.yml` file and place in your `.github/workflows` folder. You c
     steps:
     # Calculates traffic and clones and stores in CSV file
     - name: Repository Traffic 
-      uses: sangonzal/repository-traffic-action@v0.1.5
+      uses: sangonzal/repository-traffic-action@v0.1.6
       env:
         TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }} 
 ```
@@ -49,7 +49,7 @@ jobs:
     
     # Calculates traffic and clones and stores in CSV file
     - name: GitHub traffic 
-      uses: sangonzal/repository-traffic-action@v0.1.5
+      uses: sangonzal/repository-traffic-action@v0.1.6
       env:
         TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }} 
      
@@ -97,7 +97,7 @@ jobs:
     
     # Calculates traffic and clones and stores in CSV file
     - name: Repository Traffic 
-      uses: sangonzal/repository-traffic-action@v0.1.5
+      uses: sangonzal/repository-traffic-action@v0.1.6
       env:
         TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }} 
      
@@ -111,4 +111,16 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         SOURCE_DIR: 'traffic'
+```
+## Running from a different repository
+If you'd like to get stats from a different repository than the one that you are running the github action, you can set the env variable "REPOSITORY_NAME". REPOSITORY_NAME should be formatted as "username/repository_name" or "organization_name/repository_name". The personal access token that you created in the first step should have access to the repository. For example, if I was to set up a a github action in a different repository to store stats for this repo, the workflow file would look like this:
+
+```yaml
+    steps:
+    # Calculates traffic and clones and stores in CSV file
+    - name: Repository Traffic 
+      uses: sangonzal/repository-traffic-action@v0.1.6
+      env:
+        TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }}
+        REPOSITORY_NAME: "sangonzal/repository-traffic-action"
 ```
